@@ -20,8 +20,18 @@ public class Main {
         System.out.println("3. Withdraw");
         System.out.println("4. exit");
         System.out.println("***************");
-        System.out.println("\nchoose an options: ");
-        choice = scanner.nextInt();
+
+        while (true) {
+            System.out.println("\nchoose an options: ");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("\n!!!INVALID SELECTION!!!");
+                scanner.next();
+            }
+        }
 
         // GET AND PROCESS USERS CHOICE
         switch (choice) {
@@ -31,14 +41,13 @@ public class Main {
                 break;
             case 2:
                 System.out.println("DEPOSITING");
-                deposit(balance);
+                deposit(balance, scanner);
                 break;
             case 3:
                 System.out.println("WITHDRAWING");
-                withdraw(balance);
+                withdraw(balance, scanner);
                 break;
             case 4:
-                System.out.println("ENJOY LIFE");
                 isRunning = false;
                 break;
             default:
@@ -59,48 +68,56 @@ public class Main {
 
     // Balance method
     public static double showBalance(double balance) {
-        System.out.println("You balance is R" + balance + "\n");
+        System.out.println("You balance is R" + String.format("%.2f", balance) + "\n");
         return balance;
     }
 
-    public static double deposit(double balance) {
-        Scanner scanner = new Scanner(System.in);
+    public static double deposit(double balance, Scanner scanner) {
 
         while (true) {
             System.out.print("Enter amount you want to deposit: R");
-            double deposit_amount = scanner.nextDouble();
 
-            if (deposit_amount < 1) {
-                System.out.println("Be serious guy.");
+            if (scanner.hasNextDouble()) {
+                double deposit_amount = scanner.nextDouble();
+
+                if (deposit_amount < 1) {
+                    System.out.println("Be serious guy.");
+                } else {
+                    balance += deposit_amount;
+                    System.out.println("You new balance is R" + String.format("%.2f", balance) + "\n");
+                    break;
+                }
             } else {
-                balance += deposit_amount;
-                System.out.println("You new balance is R" + balance + "\n");
-                break;
+                System.out.println("Invalid entry.");
+                scanner.next();
             }
         }
         scanner.close();
         return balance;
     }
 
-    public static double withdraw(double balance) {
-        Scanner scanner = new Scanner(System.in);
+    public static double withdraw(double balance, Scanner scanner) {
 
         while (true) {
 
             System.out.print("Enter amount you want to withdraw: R");
-            double withdrawn_amount = scanner.nextDouble();
 
-            if (withdrawn_amount > balance) {
-                System.out.println("Lol lower bruh, remember your balance is R" + balance);
+            if (scanner.hasNextDouble()) {
+                double withdrawn_amount = scanner.nextDouble();
+
+                if (withdrawn_amount > balance) {
+                    System.out.println("Lol lower bruh, remember your balance is R" + String.format("%.2f", balance));
+                } else {
+                    balance -= withdrawn_amount;
+                    System.out.println("New balance is R" + String.format("%.2f", balance));
+                    break;
+                }
             } else {
-                balance -= withdrawn_amount;
-                System.out.println("New balance is R" + balance);
-                break;
+                System.out.println("Invalid entry.");
+                scanner.next();
             }
         }
         scanner.close();
         return balance;
-
     }
-
 }
