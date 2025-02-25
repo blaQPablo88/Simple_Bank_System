@@ -1,10 +1,15 @@
 
 // JAVA BANKING PROGRAM FOR BEGINNERS
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        // JAVA BANKING PROGRAM FOR BEGINNERS
+        Scanner scanner = new Scanner(System.in);
+        double balance = 0;
+        boolean isRunning = true;
+        int choice;
+
         System.out.println("***************");
         System.out.println("Banking Program");
         System.out.println("***************");
@@ -13,6 +18,25 @@ public class Main {
         System.out.println("3. Withdraw");
         System.out.println("4. exit");
         System.out.println("***************");
+        System.out.println("\nchoose an options: ");
+        choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("SHOWING BALANCE");
+                System.out.println("You balance is R" + showBalance(balance) + "\n");
+            case 2:
+                System.out.println("DEPOSITING");
+            case 3:
+                System.out.println("WITHDRAWING");
+            case 4:
+                System.out.println("ENJOY LIFE");
+                isRunning = false;
+            default:
+                System.out.println("!!!INVALID CHOICE!!!");
+                break;
+        }
+
 
         // DECLARE VARIABLES
 
@@ -27,6 +51,13 @@ public class Main {
         // withdraw()
 
         // EXIT MESSAGE
+        scanner.close();
 
     }
+
+    // Balance method
+    public static double showBalance(double balance) {
+        return balance;
+    }
+
 }
