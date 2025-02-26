@@ -105,12 +105,21 @@ public class Main {
             if (scanner.hasNextDouble()) {
                 double withdrawn_amount = scanner.nextDouble();
 
-                if (withdrawn_amount > balance) {
+                if (withdrawn_amount > balance || withdrawn_amount == 0) {
                     System.out.println("Lol lower bruh, remember your balance is R" + String.format("%.2f", balance));
                 } else {
-                    balance -= withdrawn_amount;
-                    System.out.println("New balance is R" + String.format("%.2f", balance));
-                    break;
+                    if (withdrawn_amount >= 1) {
+                        balance -= withdrawn_amount;
+                        System.out.println("New balance is R" + String.format("%.2f", balance));
+                        break;
+                    }
+                    else {
+                        withdrawn_amount = -(withdrawn_amount);
+                        balance -= withdrawn_amount;
+                        System.out.println("Vele a negative value??? Lol fede. New balance is R" + String.format("%.2f", balance));
+                        break;
+
+                    }
                 }
             } else {
                 System.out.println("Invalid entry.");
